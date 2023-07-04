@@ -17,12 +17,9 @@ player.getVideoTitle().then(function (title) {
 
 const onPlay = function ({ seconds }) {
   localStorage.setItem('videoplayer-current-time', JSON.stringify(seconds));
-  _.throttle(() => {
-    console.log('Scroll handler call every 300ms');
-  }, 1000);
 };
 
-player.on('timeupdate', onPlay);
+player.on('timeupdate', _.throttle(onPlay, 1000));
 
 const LS = localStorage.getItem('videoplayer-current-time');
 
